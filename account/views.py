@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render
+from django.conf import settings
 from .forms import ContactForm
 
 def homepage(request):
@@ -6,12 +7,26 @@ def homepage(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request,'contact/home.html',{
+            context = {
                 'form':ContactForm(),
-                'success': True
-            })
+                'success': True,
+                'restaurant_name':settings.Alpha
+            }
+            return render(request, 'contact/home.html',context) 
+        else:
+            context = {
+                'form':form,
+                'restaurant_name':settings.Alpha
+                 }
+                 return render(request,'contact/home.html',context)
+
         else:
             form = ContactForm()
-        return render(request, 'contact/home.html' ,{'form':form})        
+            context = {
+                'form': form,
+                'restaurant_name':settings.Alpha
+            }
+            return render(request, 'contact/home.html',context) 
+
 
 
