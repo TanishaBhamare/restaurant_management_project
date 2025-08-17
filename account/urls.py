@@ -6,9 +6,9 @@ def restaurant(request):
 
 
 from django.urls import path
-from .views import *
+from . import views
 
 urlpatterns = [
-    path('',homepage,name='homepage'),
+    path('restaurant',views.restaurant_page,name='restaurant'),
     
 ]
